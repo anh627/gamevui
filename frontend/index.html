@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Vui - Trang Chủ</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-gamepad"></i>
+                <span>Game Vui</span>
+            </div>
+            <div class="nav-menu">
+                <a href="lobby.html" class="nav-link">
+                    <i class="fas fa-users"></i> Phòng chờ
+                </a>
+                <a href="leaderboard.html" class="nav-link">
+                    <i class="fas fa-trophy"></i> Bảng xếp hạng
+                </a>
+                <div class="nav-auth" id="navAuth">
+                    <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary">Đăng ký</a>
+                </div>
+                <div class="nav-user" id="navUser" style="display: none;">
+                    <span class="username" id="displayUsername"></span>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Chào mừng đến với Game Vui!</h1>
+            <p class="hero-subtitle">Chơi game online cùng bạn bè - Miễn phí, Vui vẻ, Hấp dẫn</p>
+            <div class="hero-buttons">
+                <a href="lobby.html" class="btn btn-large btn-primary">
+                    <i class="fas fa-play"></i> Chơi ngay
+                </a>
+                <a href="#games" class="btn btn-large btn-outline">
+                    <i class="fas fa-dice"></i> Xem các game
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500" alt="Gaming">
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2 class="section-title">Các Trò Chơi Phổ Biến</h2>
+            <div class="games-grid">
+                <!-- Tic Tac Toe -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <h3>Cờ Caro (X-O)</h3>
+                    <p>Trò chơi cổ điển 3x3, người chơi đầu tiên có 3 ký tự liên tiếp sẽ thắng</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-users"></i> 2 người</span>
+                        <span><i class="fas fa-clock"></i> 5 phút</span>
+                    </div>
+                    <a href="games/tictactoe/index.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-play"></i> Chơi ngay
+                    </a>
+                </div>
+
+                <!-- Ludo -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-dice"></i>
+                    </div>
+                    <h3>Cờ Cá Ngựa</h3>
+                    <p>Trò chơi board game kinh điển với xúc xắc, đua các quân cờ về đích</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-users"></i> 2-4 người</span>
+                        <span><i class="fas fa-clock"></i> 20 phút</span>
+                    </div>
+                    <a href="games/ludo/index.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-play"></i> Chơi ngay
+                    </a>
+                </div>
+
+                <!-- UNO -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>UNO</h3>
+                    <p>Trò chơi bài phổ biến với các lá bài màu sắc và chức năng đặc biệt</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-users"></i> 2-8 người</span>
+                        <span><i class="fas fa-clock"></i> 15 phút</span>
+                    </div>
+                    <a href="games/uno/index.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-play"></i> Chơi ngay
+                    </a>
+                </div>
+
+                <!-- Battleship -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <h3>Bắn Tàu</h3>
+                    <p>Tìm và phá hủy hạm đội của đối thủ trên biển</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-users"></i> 2 người</span>
+                        <span><i class="fas fa-clock"></i> 10 phút</span>
+                    </div>
+                    <a href="games/battleship/index.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-play"></i> Chơi ngay
+                    </a>
+                </div>
+
+                <!-- Bingo -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-th"></i>
+                    </div>
+                    <h3>Bingo</h3>
+                    <p>Đánh dấu các số được gọi, người đầu tiên hoàn thành hàng sẽ thắng</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-users"></i> 2-10 người</span>
+                        <span><i class="fas fa-clock"></i> 10 phút</span>
+                    </div>
+                    <a href="games/bingo/index.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-play"></i> Chơi ngay
+                    </a>
+                </div>
+
+                <!-- Coming Soon -->
+                <div class="game-card coming-soon">
+                    <div class="game-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3>Sắp ra mắt</h3>
+                    <p>Nhiều trò chơi thú vị khác đang được phát triển...</p>
+                    <div class="game-stats">
+                        <span><i class="fas fa-rocket"></i> Đang phát triển</span>
+                    </div>
+                    <button class="btn btn-outline btn-block" disabled>
+                        <i class="fas fa-hourglass-half"></i> Sắp có
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Tính Năng Nổi Bật</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-wifi feature-icon"></i>
+                    <h3>Chơi Online</h3>
+                    <p>Kết nối và chơi với bạn bè từ khắp nơi</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-trophy feature-icon"></i>
+                    <h3>Bảng Xếp Hạng</h3>
+                    <p>Cạnh tranh và leo top với người chơi khác</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Đa Nền Tảng</h3>
+                    <p>Chơi trên máy tính, điện thoại, máy tính bảng</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3>Bảo Mật</h3>
+                    <p>Dữ liệu được mã hóa và bảo vệ an toàn</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Game Vui. Tất cả quyền được bảo lưu.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getUserInfo();
+            if (user) {
+                document.getElementById('navAuth').style.display = 'none';
+                document.getElementById('navUser').style.display = 'flex';
+                document.getElementById('displayUsername').textContent = user.username;
+            }
+
+            // Mobile menu toggle
+            document.getElementById('navToggle').addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

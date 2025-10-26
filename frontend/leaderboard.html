@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Xếp Hạng - Game Vui</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Game Vui</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="lobby.html" class="nav-link">
+                    <i class="fas fa-users"></i> Phòng chờ
+                </a>
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Trang chủ
+                </a>
+                <div class="nav-user" id="navUser">
+                    <span class="username" id="displayUsername"></span>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="leaderboard-container">
+        <div class="container">
+            <!-- Header -->
+            <div class="leaderboard-header">
+                <h1><i class="fas fa-trophy"></i> Bảng Xếp Hạng</h1>
+                <p>Top người chơi xuất sắc nhất</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="leaderboard-filters">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-game="all">
+                        <i class="fas fa-globe"></i> Tổng thể
+                    </button>
+                    <button class="filter-tab" data-game="tictactoe">
+                        <i class="fas fa-hashtag"></i> Cờ Caro
+                    </button>
+                    <button class="filter-tab" data-game="ludo">
+                        <i class="fas fa-dice"></i> Cờ Cá Ngựa
+                    </button>
+                    <button class="filter-tab" data-game="uno">
+                        <i class="fas fa-layer-group"></i> UNO
+                    </button>
+                    <button class="filter-tab" data-game="battleship">
+                        <i class="fas fa-ship"></i> Bắn Tàu
+                    </button>
+                    <button class="filter-tab" data-game="bingo">
+                        <i class="fas fa-th"></i> Bingo
+                    </button>
+                </div>
+
+                <div class="time-filter">
+                    <select id="timeFilter" class="filter-select">
+                        <option value="all">Mọi thời gian</option>
+                        <option value="today">Hôm nay</option>
+                        <option value="week">Tuần này</option>
+                        <option value="month">Tháng này</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Top 3 Players -->
+            <div class="top-players">
+                <div class="top-player second">
+                    <div class="rank-badge silver">2</div>
+                    <div class="player-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Player2&background=C0C0C0&color=fff" alt="Player 2">
+                    </div>
+                    <h3 class="player-name">Player2</h3>
+                    <div class="player-score">1,850 điểm</div>
+                    <div class="player-stats">
+                        <span><i class="fas fa-gamepad"></i> 150 trận</span>
+                        <span><i class="fas fa-percentage"></i> 75% thắng</span>
+                    </div>
+                </div>
+
+                <div class="top-player first">
+                    <div class="rank-badge gold">1</div>
+                    <div class="crown-icon"><i class="fas fa-crown"></i></div>
+                    <div class="player-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Champion&background=FFD700&color=fff" alt="Champion">
+                    </div>
+                    <h3 class="player-name">Champion</h3>
+                    <div class="player-score">2,500 điểm</div>
+                    <div class="player-stats">
+                        <span><i class="fas fa-gamepad"></i> 200 trận</span>
+                        <span><i class="fas fa-percentage"></i> 85% thắng</span>
+                    </div>
+                </div>
+
+                <div class="top-player third">
+                    <div class="rank-badge bronze">3</div>
+                    <div class="player-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Player3&background=CD7F32&color=fff" alt="Player 3">
+                    </div>
+                    <h3 class="player-name">Player3</h3>
+                    <div class="player-score">1,650 điểm</div>
+                    <div class="player-stats">
+                        <span><i class="fas fa-gamepad"></i> 120 trận</span>
+                        <span><i class="fas fa-percentage"></i> 70% thắng</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="leaderboard-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hạng</th>
+                            <th>Người chơi</th>
+                            <th>Điểm</th>
+                            <th>Số trận</th>
+                            <th>Thắng</th>
+                            <th>Tỷ lệ thắng</th>
+                            <th>Cấp độ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more">
+                <button class="btn btn-outline" id="loadMoreBtn">
+                    <i class="fas fa-arrow-down"></i> Xem thêm
+                </button>
+            </div>
+
+            <!-- Player Stats (if logged in) -->
+            <div class="my-stats" id="myStats" style="display: none;">
+                <h3><i class="fas fa-user"></i> Thống kê của bạn</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-trophy stat-icon"></i>
+                        <div class="stat-value" id="myRank">#--</div>
+                        <div class="stat-label">Xếp hạng</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star stat-icon"></i>
+                        <div class="stat-value" id="myScore">0</div>
+                        <div class="stat-label">Tổng điểm</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-gamepad stat-icon"></i>
+                        <div class="stat-value" id="myGames">0</div>
+                        <div class="stat-label">Số trận</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-percentage stat-icon"></i>
+                        <div class="stat-value" id="myWinRate">0%</div>
+                        <div class="stat-label">Tỷ lệ thắng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Game Vui. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>

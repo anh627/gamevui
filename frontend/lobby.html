@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Chờ - Game Vui</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/lobby.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Game Vui</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="leaderboard.html" class="nav-link">
+                    <i class="fas fa-trophy"></i> Bảng xếp hạng
+                </a>
+                <div class="nav-user" id="navUser">
+                    <span class="username" id="displayUsername"></span>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="lobby-container">
+        <!-- Sidebar - Room List -->
+        <aside class="lobby-sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-door-open"></i> Danh sách phòng</h3>
+                <button class="btn btn-primary" onclick="createRoom()">
+                    <i class="fas fa-plus"></i> Tạo phòng
+                </button>
+            </div>
+            
+            <div class="room-filters">
+                <select id="gameFilter" class="filter-select">
+                    <option value="all">Tất cả game</option>
+                    <option value="tictactoe">Cờ Caro</option>
+                    <option value="ludo">Cờ Cá Ngựa</option>
+                    <option value="uno">UNO</option>
+                    <option value="battleship">Bắn Tàu</option>
+                    <option value="bingo">Bingo</option>
+                </select>
+            </div>
+
+            <div class="room-list" id="roomList">
+                <!-- Rooms will be populated here -->
+                <div class="room-item">
+                    <div class="room-info">
+                        <h4>Phòng #001</h4>
+                        <span class="room-game"><i class="fas fa-hashtag"></i> Cờ Caro</span>
+                    </div>
+                    <div class="room-meta">
+                        <span class="room-players"><i class="fas fa-users"></i> 1/2</span>
+                        <button class="btn btn-sm btn-primary" onclick="joinRoom('001')">
+                            Tham gia
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="lobby-main">
+            <!-- Current Room -->
+            <div class="current-room" id="currentRoom" style="display: none;">
+                <div class="room-header">
+                    <h2>Phòng #<span id="roomId"></span></h2>
+                    <div class="room-actions">
+                        <button class="btn btn-outline" onclick="inviteFriend()">
+                            <i class="fas fa-share"></i> Mời bạn
+                        </button>
+                        <button class="btn btn-danger" onclick="leaveRoom()">
+                            <i class="fas fa-sign-out-alt"></i> Rời phòng
+                        </button>
+                    </div>
+                </div>
+
+                <div class="room-content">
+                    <div class="players-section">
+                        <h3>Người chơi</h3>
+                        <div class="players-grid" id="playersGrid">
+                            <!-- Players will be shown here -->
+                        </div>
+                    </div>
+
+                    <div class="game-settings">
+                        <h3>Cài đặt game</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Trò chơi:</label>
+                                <select id="gameSelect" class="form-control">
+                                    <option value="tictactoe">Cờ Caro</option>
+                                    <option value="ludo">Cờ Cá Ngựa</option>
+                                    <option value="uno">UNO</option>
+                                    <option value="battleship">Bắn Tàu</option>
+                                    <option value="bingo">Bingo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Thời gian mỗi lượt:</label>
+                                <select id="timeLimit" class="form-control">
+                                    <option value="30">30 giây</option>
+                                    <option value="60">1 phút</option>
+                                    <option value="120">2 phút</option>
+                                    <option value="0">Không giới hạn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-footer">
+                        <button class="btn btn-large btn-success" id="startGameBtn" onclick="startGame()">
+                            <i class="fas fa-play"></i> Bắt đầu game
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Screen (when not in room) -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <i class="fas fa-users welcome-icon"></i>
+                    <h2>Chào mừng đến phòng chờ!</h2>
+                    <p>Chọn một phòng từ danh sách hoặc tạo phòng mới để bắt đầu chơi</p>
+                    <button class="btn btn-primary btn-large" onclick="createRoom()">
+                        <i class="fas fa-plus"></i> Tạo phòng mới
+                    </button>
+                </div>
+
+                <!-- Online Users -->
+                <div class="online-users">
+                    <h3><i class="fas fa-circle text-success"></i> Người chơi online</h3>
+                    <div class="users-list" id="onlineUsersList">
+                        <!-- Online users will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Chat Sidebar -->
+        <aside class="chat-sidebar">
+            <div class="chat-header">
+                <h3><i class="fas fa-comments"></i> Chat</h3>
+                <span class="chat-status online">Đã kết nối</span>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+                <div class="chat-message system">
+                    <span>Chào mừng bạn đến với phòng chờ!</span>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Nhập tin nhắn..."
+                    onkeypress="if(event.key === 'Enter') sendMessage()"
+                >
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tạo phòng mới</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="createRoomForm">
+                    <div class="form-group">
+                        <label>Tên phòng:</label>
+                        <input type="text" id="roomName" class="form-control" placeholder="Nhập tên phòng">
+                    </div>
+                    <div class="form-group">
+                        <label>Chọn game:</label>
+                        <select id="roomGame" class="form-control">
+                            <option value="tictactoe">Cờ Caro</option>
+                            <option value="ludo">Cờ Cá Ngựa</option>
+                            <option value="uno">UNO</option>
+                            <option value="battleship">Bắn Tàu</option>
+                            <option value="bingo">Bingo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Số người tối đa:</label>
+                        <input type="number" id="maxPlayers" class="form-control" min="2" max="10" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="privateRoom"> Phòng riêng tư
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Hủy</button>
+                <button class="btn btn-primary" onclick="confirmCreateRoom()">Tạo phòng</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/lobby.js"></script>
+</body>
+</html>
